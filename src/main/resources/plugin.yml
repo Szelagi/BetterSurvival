@@ -1,0 +1,4 @@
+name: BetterSurvival
+version: '1.0-SNAPSHOT'
+main: pl.szelagi.betterSurvival.BetterSurvival
+api-version: '1.21'
