@@ -47,3 +47,21 @@ processResources {
         expand props
     }
 }
+
+// Get the server path from project properties or set it to null
+def serverPath = project.hasProperty('serverPath') ?
+        new File(System.getProperty('user.home'), project.serverPath) : null
+
+tasks.register('copyToPluginsDir', Copy) {
+    dependsOn build  // Ensure the task runs after the build task
+
+    if (serverPath != null && serverPath.exists()) {
+        from jar
+        into serverPath
+        println "JAR file has been copied to: $serverPath"
+    } else {
+        println "The path $serverPath does not exist. The JAR file will not be copied."
+    }
+}
+
+build.finalizedBy(copyToPluginsDir)
